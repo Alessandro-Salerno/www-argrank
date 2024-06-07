@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>argrank</title>
+
+    <script>
+        const ws = new WebSocket("ws://52.47.171.54:8765/");
+
+        function sendQuery() {
+            const text = document.getElementById("input").value;
+            ws.send(text);
+        }
+
+        function setup() {
+            ws.onmessage = (event) => {
+                const message = event.data
+                document.getElementById("output").value = message;
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            background-color: rgb(30, 30, 30);
+        }
+        textarea {
+            width: 50%;
+            min-height: 30vh;
+            background-color: rgb(40, 40, 40);
+            color: rgb(200, 200, 200);
+        }
+
+        * {
+            color: white;
+        }
+
+        button {
+            background-color: rgb(50, 50, 50);
+            width: 10vw;
+            height: 3vh;
+        }
+
+        a {
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body onload="setup()">
+    <h1>argrank</h1>
+    <p>Documentazione <a href="https://github.com/Alessandro-Salerno/argrank">qui</a></p>
+
+    <textarea placeholder="Qui arriverà l'output" id="output"  readonly></textarea> <br>
+    <textarea placeholder="Inserire qui la query" id="input"></textarea> <br>
+
+    <button onclick="sendQuery()">ESEGUI</button>
+</body>
+</html>
